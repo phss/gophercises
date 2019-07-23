@@ -2,6 +2,7 @@ package questions
 
 import (
 	"encoding/csv"
+	"fmt"
 	"io"
 )
 
@@ -22,6 +23,10 @@ func Load(reader io.Reader) ([]Question, error) {
 
 	questions := make([]Question, len(lines))
 	for i, line := range lines {
+		if len(line) != 2 {
+			return nil, fmt.Errorf("incorrect number of columns in index %v", i)
+		}
+
 		questions[i] = Question{
 			Question: line[0],
 			Answer:   line[1],

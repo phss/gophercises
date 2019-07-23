@@ -33,6 +33,16 @@ one more?,sure`))
 	}
 }
 
+func TestLoad_incorrectCsv(t *testing.T) {
+	_, err := questions.Load(strings.NewReader(`
+wrong format
+missing a column`))
+
+	if err.Error() != "incorrect number of columns in index 0" {
+		t.Errorf("Expected failure but got %v", err)
+	}
+}
+
 func TestLoad_errorReader(t *testing.T) {
 	_, err := questions.Load(failingReader{"should fail"})
 
