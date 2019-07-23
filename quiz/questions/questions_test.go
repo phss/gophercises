@@ -1,6 +1,7 @@
 package questions_test
 
 import (
+	"errors"
 	"strings"
 	"testing"
 
@@ -30,4 +31,20 @@ one more?,sure`))
 		}
 
 	}
+}
+
+func TestLoad_errorReader(t *testing.T) {
+	_, err := questions.Load(failingReader{"should fail"})
+
+	if err.Error() != "should fail" {
+		t.Errorf("Expected failure but got %v", err)
+	}
+}
+
+type failingReader struct {
+	failure string
+}
+
+func (r failingReader) Read(p []byte) (int, error) {
+	return 0, errors.New(r.failure)
 }

@@ -14,7 +14,11 @@ type Question struct {
 // Load questions from CSV formatted Reader.
 func Load(reader io.Reader) ([]Question, error) {
 	csv := csv.NewReader(reader)
-	lines, _ := csv.ReadAll()
+	lines, err := csv.ReadAll()
+
+	if err != nil {
+		return nil, err
+	}
 
 	questions := make([]Question, len(lines))
 	for i, line := range lines {
