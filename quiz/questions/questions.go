@@ -12,18 +12,16 @@ type Question struct {
 }
 
 // Load questions from CSV formatted Reader.
-func Load(reader io.Reader) []Question {
+func Load(reader io.Reader) ([]Question, error) {
 	csv := csv.NewReader(reader)
 	lines, _ := csv.ReadAll()
 
 	questions := make([]Question, len(lines))
-
 	for i, line := range lines {
 		questions[i] = Question{
 			Question: line[0],
 			Answer:   line[1],
 		}
 	}
-
-	return questions
+	return questions, nil
 }

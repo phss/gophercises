@@ -13,13 +13,16 @@ func TestLoad(t *testing.T) {
 		{Question: "is this a valid question?", Answer: "yes"},
 		{Question: "one more?", Answer: "sure"},
 	}
-	actualQuestions := questions.Load(strings.NewReader(`
+	actualQuestions, err := questions.Load(strings.NewReader(`
 1+1,2
 is this a valid question?,yes
 one more?,sure`))
 
+	if err != nil {
+		t.Errorf("Didn't expect error %v", err)
+	}
 	if len(actualQuestions) != len(expectedQuestions) {
-		t.Errorf("Mismatch number of errores. Expected %v but got %v.", len(expectedQuestions), len(actualQuestions))
+		t.Errorf("Mismatch number of questions. Expected %v but got %v.", len(expectedQuestions), len(actualQuestions))
 	}
 	for i := range actualQuestions {
 		if actualQuestions[i] != expectedQuestions[i] {
