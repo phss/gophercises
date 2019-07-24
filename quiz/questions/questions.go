@@ -14,19 +14,15 @@ type Question struct {
 
 // Load questions from CSV formatted Reader.
 func Load(reader io.Reader) ([]Question, error) {
-	csv := csv.NewReader(reader)
-	lines, err := csv.ReadAll()
-
+	lines, err := csv.NewReader(reader).ReadAll()
 	if err != nil {
 		return nil, err
+	} else if len(lines) > 0 && len(lines[0]) != 2 {
+		return nil, fmt.Errorf("incorrect number of columns in index %v", 0)
 	}
 
 	questions := make([]Question, len(lines))
 	for i, line := range lines {
-		if len(line) != 2 {
-			return nil, fmt.Errorf("incorrect number of columns in index %v", i)
-		}
-
 		questions[i] = Question{
 			Question: line[0],
 			Answer:   line[1],
