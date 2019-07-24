@@ -12,8 +12,10 @@ import (
 func TestMain(t *testing.T) {
 	testTable := []struct {
 		name string
+		args []string
 	}{
-		{name: "default params"},
+		{name: "default params", args: []string{}},
+		{name: "short example", args: []string{"-csv", "sample/short.csv"}},
 	}
 	for _, testCase := range testTable {
 		t.Run(testCase.name, func(t *testing.T) {
@@ -22,7 +24,9 @@ func TestMain(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			cmd := exec.Command("go", "run", ".")
+			args := []string{"run", "."}
+			args = append(args, testCase.args...)
+			cmd := exec.Command("go", args...)
 			actual, err := cmd.CombinedOutput()
 			if err != nil {
 				t.Fatal(err)

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 
@@ -8,9 +9,10 @@ import (
 )
 
 func main() {
-	defaultProblemsPath := "sample/short.csv"
-	problemsFile, _ := os.Open(defaultProblemsPath)
+	defaultProblemsPath := flag.String("csv", "sample/problems.csv", "CSV with problem set")
+	flag.Parse()
 
+	problemsFile, _ := os.Open(*defaultProblemsPath)
 	problems, _ := problems.Load(problemsFile)
 
 	for i, problem := range problems {
