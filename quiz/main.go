@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/phss/gophercises/quiz/questions"
+	"github.com/phss/gophercises/quiz/problems"
 )
 
 func main() {
 	defaultProblemsPath := "sample/short.csv"
 	problemsFile, _ := os.Open(defaultProblemsPath)
 
-	problems, _ := questions.Load(problemsFile)
+	problems, _ := problems.Load(problemsFile)
 
 	for i, problem := range problems {
 		fmt.Printf("Problem #%d: %s =\n", i+1, problem.Question)

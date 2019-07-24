@@ -1,4 +1,4 @@
-package questions_test
+package problems_test
 
 import (
 	"errors"
@@ -6,17 +6,16 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-
-	"github.com/phss/gophercises/quiz/questions"
+	"github.com/phss/gophercises/quiz/problems"
 )
 
 func TestLoad(t *testing.T) {
-	expectedQuestions := []questions.Question{
+	expected := []problems.Problem{
 		{Question: "1+1", Answer: "2"},
 		{Question: "is this a valid question?", Answer: "yes"},
 		{Question: "one more?", Answer: "sure"},
 	}
-	actualQuestions, err := questions.Load(strings.NewReader(`
+	actual, err := problems.Load(strings.NewReader(`
 1+1,2
 is this a valid question?,yes
 one more?,sure`))
@@ -24,13 +23,13 @@ one more?,sure`))
 	if err != nil {
 		t.Errorf("got error %v", err)
 	}
-	if diff := cmp.Diff(actualQuestions, expectedQuestions); diff != "" {
+	if diff := cmp.Diff(actual, expected); diff != "" {
 		t.Error(diff)
 	}
 }
 
 func TestLoad_incorrectCsv(t *testing.T) {
-	_, err := questions.Load(strings.NewReader(`
+	_, err := problems.Load(strings.NewReader(`
 wrong format
 missing a column`))
 
@@ -40,7 +39,7 @@ missing a column`))
 }
 
 func TestLoad_errorReader(t *testing.T) {
-	_, err := questions.Load(failingReader{"should fail"})
+	_, err := problems.Load(failingReader{"should fail"})
 
 	if err.Error() != "should fail" {
 		t.Errorf("Expected failure but got %v", err)

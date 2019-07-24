@@ -1,4 +1,4 @@
-package questions
+package problems
 
 import (
 	"encoding/csv"
@@ -6,14 +6,14 @@ import (
 	"io"
 )
 
-// Question represents a question and a valid answer.
-type Question struct {
+// Problemn represents a problem and a valid answer.
+type Problem struct {
 	Question string
 	Answer   string
 }
 
-// Load questions from CSV formatted Reader.
-func Load(reader io.Reader) ([]Question, error) {
+// Load problems from CSV formatted Reader.
+func Load(reader io.Reader) ([]Problem, error) {
 	lines, err := csv.NewReader(reader).ReadAll()
 	if err != nil {
 		return nil, err
@@ -21,12 +21,12 @@ func Load(reader io.Reader) ([]Question, error) {
 		return nil, fmt.Errorf("incorrect number of columns in index %v", 0)
 	}
 
-	questions := make([]Question, len(lines))
+	problems := make([]Problem, len(lines))
 	for i, line := range lines {
-		questions[i] = Question{
+		problems[i] = Problem{
 			Question: line[0],
 			Answer:   line[1],
 		}
 	}
-	return questions, nil
+	return problems, nil
 }
