@@ -13,7 +13,7 @@ func Play(problems *[]problems.Problem, input io.Reader, output io.Writer) {
 	playerInputReader := bufio.NewReader(input)
 	score := 0
 	for i, problem := range *problems {
-		fmt.Fprintf(output, "Problem #%d: %s =\n", i+1, problem.Question)
+		fmt.Fprintf(output, "Problem #%d: %s = ", i+1, problem.Question)
 		answer, _, _ := playerInputReader.ReadLine()
 		if string(answer) == problem.Answer {
 			score++
