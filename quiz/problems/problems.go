@@ -6,7 +6,7 @@ import (
 	"io"
 )
 
-// Problemn represents a problem and a valid answer.
+// Problem represents a problem and a valid answer.
 type Problem struct {
 	Question string
 	Answer   string
