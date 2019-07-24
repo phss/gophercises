@@ -10,12 +10,12 @@ import (
 
 // Play a quiz using the set of problems.
 func Play(problems *[]problems.Problem, input io.Reader, output io.Writer) {
-	userInput := bufio.NewReader(input)
+	playerInputReader := bufio.NewReader(input)
 	score := 0
 	for i, problem := range *problems {
 		fmt.Fprintf(output, "Problem #%d: %s =\n", i+1, problem.Question)
-		userAnswer, _ := userInput.ReadString('\n')
-		if userAnswer == problem.Answer+"\n" {
+		answer, _, _ := playerInputReader.ReadLine()
+		if string(answer) == problem.Answer {
 			score++
 		}
 	}
