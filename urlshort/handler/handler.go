@@ -26,8 +26,8 @@ func YAMLHandler(yml []byte, fallback http.Handler) (http.HandlerFunc, error) {
 
 func yamlToMap(yml []byte) (map[string]string, error) {
 	type YamlData struct {
-		Path string `yaml:path`
-		Url  string `yaml:url`
+		Path string `yaml:"path"`
+		URL  string `yaml:"url"`
 	}
 
 	yamlData := []YamlData{}
@@ -38,7 +38,7 @@ func yamlToMap(yml []byte) (map[string]string, error) {
 
 	pathsToUrls := make(map[string]string)
 	for _, data := range yamlData {
-		pathsToUrls[data.Path] = data.Url
+		pathsToUrls[data.Path] = data.URL
 	}
 	return pathsToUrls, nil
 }
