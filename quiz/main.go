@@ -13,6 +13,7 @@ import (
 
 func main() {
 	csvFilename := flag.String("csv", "sample/problems.csv", "CSV with problem set")
+	timeLimit := flag.Duration("limit", 30*time.Second, "time limit")
 	flag.Parse()
 
 	problemsFile, err := os.Open(*csvFilename)
@@ -27,5 +28,5 @@ func main() {
 		os.Exit(1)
 	}
 
-	game.Play(&problems, 30*time.Second, os.Stdin, os.Stdout)
+	game.Play(&problems, *timeLimit, os.Stdin, os.Stdout)
 }
