@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/phss/gophercises/quiz/game"
 
@@ -26,5 +27,5 @@ func main() {
 		os.Exit(1)
 	}
 
-	game.Play(&problems, os.Stdin, os.Stdout)
+	game.Play(&problems, 30*time.Second, os.Stdin, os.Stdout)
 }
