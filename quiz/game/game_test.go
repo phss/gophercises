@@ -26,6 +26,13 @@ func TestPlay(t *testing.T) {
 			},
 			answers: []string{"2", "yes", "nope"},
 		},
+		{
+			name: "sanitisation",
+			problems: []problems.Problem{
+				{Question: " 1+1           ", Answer: " 	2			"},
+			},
+			answers: []string{" 2  "},
+		},
 	}
 	for _, testCase := range testTable {
 		t.Run(testCase.name, func(t *testing.T) {
