@@ -20,7 +20,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	problems, _ := problems.Load(problemsFile)
+	problems, err := problems.Load(problemsFile)
+	if err != nil {
+		fmt.Printf("Invalid file format: %s\n", err)
+		os.Exit(1)
+	}
 
 	game.Play(&problems, os.Stdin, os.Stdout)
 }

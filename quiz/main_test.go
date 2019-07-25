@@ -17,6 +17,7 @@ func TestMain(t *testing.T) {
 		{name: "default params", args: []string{}},
 		{name: "short example", args: []string{"-csv", "sample/short.csv"}},
 		{name: "unknown file", args: []string{"-csv", "unknown_file.csv"}},
+		{name: "invalid file format", args: []string{"-csv", "sample/invalid.csv"}},
 	}
 	for _, testCase := range testTable {
 		t.Run(testCase.name, func(t *testing.T) {
