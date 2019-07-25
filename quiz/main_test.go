@@ -16,6 +16,7 @@ func TestMain(t *testing.T) {
 	}{
 		{name: "default params", args: []string{}},
 		{name: "short example", args: []string{"-csv", "sample/short.csv"}},
+		{name: "unknown file", args: []string{"-csv", "unknown_file.csv"}},
 	}
 	for _, testCase := range testTable {
 		t.Run(testCase.name, func(t *testing.T) {
@@ -28,9 +29,6 @@ func TestMain(t *testing.T) {
 			args = append(args, testCase.args...)
 			cmd := exec.Command("go", args...)
 			actual, err := cmd.CombinedOutput()
-			if err != nil {
-				t.Fatal(err)
-			}
 
 			if diff := cmp.Diff(string(expected), string(actual)); diff != "" {
 				t.Fatal(diff)
